@@ -2,6 +2,7 @@
     "name": "seiffert/beanstalkapp",
     "description": "PHP wrapper for Beanstalkapp's REST API",
     "license": "MIT",
+    "version": "1.0.1",
     "authors": [
         {
             "name": "Paul Seiffert",

@@ -6,8 +6,11 @@ use Beanstalk\Command\CreateRepository;
 use Beanstalk\Command\CreateUser;
 use Beanstalk\Command\UpdateRepository;
 use Beanstalk\Command\UpdateUser;
+use Beanstalk\Command\WriteIntegration;
 use Beanstalk\Model\Branch;
 use Beanstalk\Model\BranchResponse;
+use Beanstalk\Model\IntegrationRequest;
+use Beanstalk\Model\IntegrationResponse;
 use Beanstalk\Model\PublicKey;
 use Beanstalk\Model\PublicKeyResponse;
 use Beanstalk\Model\Repository;
@@ -73,10 +76,10 @@ class Beanstalk
      */
     public function createRepository(CreateRepository $repository)
     {
-        /** @var RepositoryResponse $response */
-        $response = $this->apiClient->createRepository(['body' => new RepositoryRequest($repository)]);
+        /** @var Repository $response */
+        $repository = $this->apiClient->createRepository(['body' => new RepositoryRequest($repository)]);
 
-        return $response->getRepository();
+        return $repository;
     }
 
     /**
@@ -120,6 +123,45 @@ class Beanstalk
             },
             $this->apiClient->findBranches(['id' => $id])
         );
+    }
+
+    /**
+     * Returns an array of repository’s integrations.
+     *
+     * @param int $id
+     * @return array|Integration[]
+     */
+    public function findIntegrations($id)
+    {
+        return array_map(
+            function (IntegrationResponse $response) {
+                return $response->getIntegration();
+            },
+            $this->apiClient->findIntegrations(['id' => $id])
+        );
+    }
+
+    /**
+     * Admin privileges required for this API method.
+     *
+     * @param int $repository
+     * @param WriteIntegration $repository
+     */
+    public function createIntegration($repository, WriteIntegration $integration)
+    {
+        return $this->apiClient->createIntegration(['repository' => $repository, 'body' => new IntegrationRequest($integration)]);
+    }
+
+    /**
+     * Admin privileges required for this API method.
+     *
+     * @param int $id
+     * @param int $repository
+     * @param WriteIntegration $repository
+     */
+    public function updateIntegration($id, $repository, WriteIntegration $integration)
+    {
+        return $this->apiClient->updateIntegration(['id' => $id, 'repository' => $repository, 'body' => new IntegrationRequest($integration)]);
     }
 
     /**

@@ -2,6 +2,8 @@
 
 namespace Beanstalk\Command;
 
+use JMS\Serializer\Annotation\Type;
+
 class WriteRepository
 {
     /**

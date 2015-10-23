@@ -69,6 +69,57 @@
                 }
             }
         },
+        "findIntegrations": {
+            "uri": "repositories/{id}/integrations.json",
+            "httpMethod": "GET",
+            "responseModel": "array<Beanstalk\\Model\\IntegrationResponse>",
+            "parameters": {
+                "id": {
+                    "location": "uri",
+                    "type": "integer",
+                    "required": true
+                }
+            }
+        },
+        "createIntegration": {
+            "uri": "repositories/{repository}/integrations.json",
+            "httpMethod": "POST",
+            "responseModel": "Beanstalk\\Model\\IntegrationResponse",
+            "parameters": {
+                "body": {
+                    "location": "json",
+                    "type": "Beanstalk\\Model\\IntegrationRequest",
+                    "required": true
+                },
+                "repository": {
+                    "location": "uri",
+                    "type": "integer",
+                    "required": true
+                }
+            }
+        },
+        "updateIntegration": {
+            "uri": "repositories/{repository}/integrations/{id}.json",
+            "httpMethod": "PUT",
+            "responseModel": "Beanstalk\\Model\\IntegrationResponse",
+            "parameters": {
+                "body": {
+                    "location": "json",
+                    "type": "Beanstalk\\Model\\IntegrationRequest",
+                    "required": true
+                },
+                "repository": {
+                    "location": "uri",
+                    "type": "integer",
+                    "required": true
+                },
+                "id": {
+                    "location": "uri",
+                    "type": "integer",
+                    "required": true
+                }
+            }
+        },
         "findAllUsers": {
             "uri": "users.json",
             "httpMethod": "GET",
